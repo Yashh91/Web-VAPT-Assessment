@@ -1,0 +1,99 @@
+# Web VAPT Assessment Configuration
+
+project:
+  name: "Web VAPT Assessment"
+  version: "1.0"
+  mode: "authorized_testing"
+
+target:
+  url: "http://localhost:3000"
+  timeout: 10
+  verify_ssl: false
+
+recon:
+  enabled: true
+  nmap:
+    enabled: true
+    ports: "1-1000"
+
+  endpoint_discovery:
+    enabled: true
+    wordlist: "wordlists/common.txt"
+
+  technology_detection:
+    enabled: true
+
+vulnerability_testing:
+  sql_injection:
+    enabled: true
+
+  xss:
+    enabled: true
+
+  idor:
+    enabled: true
+
+  authentication:
+    enabled: true
+
+  session_security:
+    enabled: true
+
+  csrf:
+    enabled: true
+
+  file_upload:
+    enabled: true
+
+  security_headers:
+    enabled: true
+
+  security_misconfiguration:
+    enabled: true
+
+  business_logic:
+    enabled: true
+
+risk:
+  scoring: "CVSS"
+  severity_levels:
+    critical: 9.0
+    high: 7.0
+    medium: 4.0
+    low: 0.1
+
+owasp:
+  version: "OWASP Top 10 2021"
+
+ai:
+  enabled: true
+  provider: "ollama"
+  base_url: "http://localhost:11434"
+  model: "qwen3"
+
+  analysis:
+    vulnerability_explanation: true
+    owasp_mapping: true
+    severity_assistance: true
+    remediation: true
+    report_generation: true
+
+  safety:
+    require_human_validation: true
+    authorized_testing_only: true
+
+reporting:
+  enabled: true
+  format: "html"
+  output_directory: "reports/generated"
+  include:
+    executive_summary: true
+    vulnerabilities: true
+    evidence: true
+    cvss: true
+    remediation: true
+    retest_status: true
+
+retesting:
+  enabled: true
+  require_original_finding: true
